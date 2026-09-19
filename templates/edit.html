@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Edit — {{ code['label'] or code['code'] }}{% endblock %}
+{% block content %}
+<div class="card form-card">
+  <h1>Edit target</h1>
+  <img class="qr-preview large" src="{{ url_for('qr_preview', code_id=code['id']) }}" alt="QR preview">
+  <p class="muted">Permanent code: <strong>{{ code['code'] }}</strong> — the printed QR image never has to change.</p>
+  <form method="post">
+    <label for="label">Label</label>
+    <input type="text" id="label" name="label" value="{{ code['label'] or '' }}">
+
+    <label for="target_url">Target URL</label>
+    <input type="url" id="target_url" name="target_url" value="{{ code['target_url'] }}" required>
+
+    <button type="submit">Save changes</button>
+  </form>
+</div>
+{% endblock %}

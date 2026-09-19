@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Library — QR Manager{% endblock %}
+{% block content %}
+<div class="page-head">
+  <h1>Your QR codes</h1>
+  <form class="search" method="get">
+    <input type="text" name="q" placeholder="Search label, URL, or code" value="{{ q }}">
+    <button type="submit">Search</button>
+  </form>
+</div>
+
+{% if not codes %}
+  <p class="empty">No QR codes yet. <a href="{{ url_for('new') }}">Create your first one</a>.</p>
+{% else %}
+<div class="grid">
+  {% for c in codes %}
+  <div class="card qr-card">
+    <img class="qr-preview" src="{{ url_for('qr_preview', code_id=c['id']) }}" alt="QR for {{ c['code'] }}">
+    <div class="qr-info">
+      <h2>{{ c['label'] or c['code'] }}</h2>
+      <p class="muted">{{ base_url }}/r/{{ c['code'] }}</p>
+      <p class="target">→ {{ c['target_url'] }}</p>
+      <p class="muted small">{{ c['scan_count'] }} scan{{ 's' if c['scan_count'] != 1 else '' }}</p>
+      <div class="actions">
+        <a href="{{ url_for('edit', code_id=c['id']) }}">Edit target</a>
+        <a href="{{ url_for('qr_png', code_id=c['id']) }}">PNG</a>
+        <a href="{{ url_for('qr_svg', code_id=c['id']) }}">SVG</a>
+        <form method="post" action="{{ url_for('delete', code_id=c['id']) }}"
+              onsubmit="return confirm('Delete this QR code? The printed code will stop working.');">
+          <button type="submit" class="link-danger">Delete</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+{% endblock %}

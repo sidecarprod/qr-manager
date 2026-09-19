@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  qr-manager:
+    image: ghcr.io/sidecarprod/qr-manager:latest
+    container_name: qr-manager
+    restart: unless-stopped
+    ports:
+      - "5055:5000"
+    environment:
+      - BASE_URL=https://qr.sidecarprod.com
+      - ADMIN_PASSWORD=changeme
+      - SECRET_KEY=change_this_to_a_long_random_string
+      - API_KEY=change_this_to_a_long_random_api_key
+    volumes:
+      - /volume2/docker/qr-manager:/data

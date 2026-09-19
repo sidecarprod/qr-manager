@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}New QR code{% endblock %}
+{% block content %}
+<div class="card form-card">
+  <h1>New QR code</h1>
+  <form method="post">
+    <label for="label">Label (internal, optional)</label>
+    <input type="text" id="label" name="label" value="{{ label }}" placeholder="e.g. Festival lobby poster">
+
+    <label for="target_url">Target URL</label>
+    <input type="url" id="target_url" name="target_url" value="{{ target_url }}" placeholder="https://example.com" required>
+
+    <label for="custom_code">Custom short code (optional)</label>
+    <input type="text" id="custom_code" name="custom_code" value="{{ custom_code }}" placeholder="leave blank to auto-generate">
+    <p class="hint">Lowercase letters, numbers, - and _ only. This becomes part of the QR code's permanent URL — changing the target later never changes this.</p>
+
+    <button type="submit">Create QR code</button>
+  </form>
+</div>
+{% endblock %}

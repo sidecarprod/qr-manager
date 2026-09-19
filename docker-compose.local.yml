@@ -1,0 +1,21 @@
+version: "3.8"
+
+# Use this instead of docker-compose.yml when you're building locally and
+# loading the image onto the NAS with deploy.sh — no GitHub, no registry.
+# Requires the image to already be loaded (docker load) on the NAS under
+# this exact tag before you deploy this file the first time.
+
+services:
+  qr-manager:
+    image: qr-manager:latest
+    container_name: qr-manager
+    restart: unless-stopped
+    ports:
+      - "5055:5000"
+    environment:
+      - BASE_URL=https://qr.sidecarprod.com
+      - ADMIN_PASSWORD=changeme
+      - SECRET_KEY=change_this_to_a_long_random_string
+      - API_KEY=change_this_to_a_long_random_api_key
+    volumes:
+      - /volume2/docker/qr-manager-data:/data
