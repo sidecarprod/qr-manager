@@ -55,20 +55,35 @@ h1 { margin: 0 0 8px; }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 16px;
 }
 
-.qr-card { display: flex; gap: 14px; align-items: flex-start; }
-.qr-preview { width: 90px; height: 90px; background: white; border-radius: 6px; padding: 4px; }
-.qr-preview.large { width: 160px; height: 160px; display: block; margin-bottom: 12px; }
+.qr-card { display: flex; gap: 16px; align-items: flex-start; padding: 18px; }
+.qr-preview {
+  width: 96px;
+  height: 96px;
+  flex-shrink: 0;
+  background: white;
+  border-radius: 8px;
+  padding: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+.qr-preview.large { width: 160px; height: 160px; padding: 12px; display: block; margin-bottom: 12px; }
 
-.qr-info h2 { margin: 0 0 4px; font-size: 1.05rem; }
+.qr-info { min-width: 0; }
+.qr-info h2 { margin: 0 0 6px; font-size: 1.05rem; line-height: 1.3; }
 .muted { color: var(--muted); font-size: 0.85rem; margin: 2px 0; }
-.muted.small { font-size: 0.75rem; }
-.target { font-size: 0.85rem; margin: 4px 0; word-break: break-all; }
+.muted.small { font-size: 0.75rem; margin-top: 8px; }
+.target {
+  font-size: 0.85rem;
+  margin: 4px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
-.actions { display: flex; gap: 12px; margin-top: 10px; flex-wrap: wrap; }
+.actions { display: flex; align-items: center; gap: 14px; margin-top: 10px; flex-wrap: wrap; }
 .actions a, .actions .link-danger {
   color: var(--accent);
   text-decoration: none;
@@ -76,8 +91,14 @@ h1 { margin: 0 0 8px; }
   background: none;
   border: none;
   padding: 0;
+  margin: 0;
+  line-height: 1;
   cursor: pointer;
 }
+/* The delete button lives in a <form> for the POST; display:contents drops
+   the form's own box so the button sits inline with the other actions
+   instead of wrapping onto its own row. */
+.actions form { display: contents; }
 .actions .link-danger { color: var(--danger); }
 
 form label { display: block; margin: 14px 0 6px; font-size: 0.85rem; color: var(--muted); }

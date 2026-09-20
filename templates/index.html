@@ -19,7 +19,7 @@
     <div class="qr-info">
       <h2>{{ c['label'] or c['code'] }}</h2>
       <p class="muted">{{ base_url }}/r/{{ c['code'] }}</p>
-      <p class="target">→ {{ c['target_url'] }}</p>
+      <p class="target" title="{{ c['target_url'] }}">→ {{ c['target_url'] }}</p>
       <p class="muted small">{{ c['scan_count'] }} scan{{ 's' if c['scan_count'] != 1 else '' }}</p>
       <div class="actions">
         <a href="{{ url_for('edit', code_id=c['id']) }}">Edit target</a>
